@@ -103,7 +103,6 @@ public abstract class CheckerboardItem : ThumbnailView {
     public const string PROP_SHOW_COMMENTS = "show-comments";
     // SHOW_SUBTITLES (bool)
     public const string PROP_SHOW_SUBTITLES = "show-subtitles";
-    
     public const int FRAME_WIDTH = 8;
     public const int LABEL_PADDING = 4;
     public const int BORDER_WIDTH = 1;
