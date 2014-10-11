@@ -100,18 +100,19 @@ public static int compare(owned string a, owned string b) {
             assert(result == INIT_VALUE);
             result = BFIRST;
         } else { // neither starts with a numberal, we handle this pair of chars strcmp-style
-            if (a.get_char(0) > b.get_char(0)) {
-                assert(result == INIT_VALUE);
-                result = BFIRST;
-            } else if (a.get_char(0) < b.get_char(0)) {
-                assert(result == INIT_VALUE);
-                result = AFIRST;
-            } else {
+            unichar min_ab = unichar.min(a_head, b_head);
+            if (a_head == b_head) {
                 // equal
                 int a_second_char = a.index_of_nth_char(1);
                 int b_second_char = b.index_of_nth_char(1);
                 a = a.substring(a_second_char);
                 b = b.substring(b_second_char);
+            } else if (b_head == min_ab) {
+                assert(result == INIT_VALUE);
+                result = BFIRST;
+            } else if (a_head == min_ab) { 
+                assert(result == INIT_VALUE);
+                result = AFIRST;
             }
         }        
 
