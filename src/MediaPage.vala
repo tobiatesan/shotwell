@@ -94,10 +94,12 @@ public class MediaSourceItem : CheckerboardItem {
         this.enable_sprockets = enable_sprockets;
     }
 
-    public new void set_title(string title) {
+    public new void set_title(string text, bool marked_up = false,
+        Pango.Alignment alignment = Pango.Alignment.LEFT) {
+
         // This might invalidate the collation key we cached
         this.natural_collation_key = null;
-        base.set_title(title);
+        base.set_title(text, marked_up, alignment);
     }
 
     public string get_natural_collation_key() {
