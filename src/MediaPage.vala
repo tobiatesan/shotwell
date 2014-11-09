@@ -103,7 +103,7 @@ public class MediaSourceItem : CheckerboardItem {
        
     public string get_natural_collation_key() {
         if (this.natural_collation_key == null) {
-            this.natural_collation_key = NaturalCollate.preprocess(this.get_name()).collate_key();
+            this.natural_collation_key = NaturalCollate.collate_key(this.get_title());
         }
         return this.natural_collation_key;
     }
