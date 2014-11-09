@@ -103,7 +103,6 @@ public abstract class CheckerboardItem : ThumbnailView {
     public const string PROP_SHOW_COMMENTS = "show-comments";
     // SHOW_SUBTITLES (bool)
     public const string PROP_SHOW_SUBTITLES = "show-subtitles";
-    public string title_text;
     public const int FRAME_WIDTH = 8;
     public const int LABEL_PADDING = 4;
     public const int BORDER_WIDTH = 1;
@@ -140,7 +139,6 @@ public abstract class CheckerboardItem : ThumbnailView {
         base(source);
         
         pixbuf_dim = initial_pixbuf_dim;
-        this.title_text = title;
         this.title = new CheckerboardItemText(title, alignment, marked_up);
         // on the checkboard page we display the comment in 
         // one line, i.e., replacing all newlines with spaces.
