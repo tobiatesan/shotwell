@@ -6,6 +6,7 @@ void add_trailing_numbers_tests () {
             string coll_b = NaturalCollate.collate_key(b);
             assert(strcmp(coll_a, coll_b) > 0);
             assert(strcmp(a,b) > 0);
+            assert(NaturalCollate.compare(a,b) == strcmp(coll_a, coll_b));
 
             string atrail = "00100foo";
             string btrail = "0100bar";
@@ -17,6 +18,7 @@ void add_trailing_numbers_tests () {
 
             assert(strcmp(coll_atrail, coll_btrail) > 0);
             assert(strcmp(atrail,btrail) < 0);
+            assert(NaturalCollate.compare(atrail,btrail) == strcmp(coll_atrail, coll_btrail));
 
         });
 }
@@ -28,7 +30,8 @@ void add_numbers_tail_tests () {
             string coll_a = NaturalCollate.collate_key(a);
             string coll_b = NaturalCollate.collate_key(b);
             assert(strcmp(coll_a, coll_b) > 0);
-            assert(strcmp(a,b) < 0);          
+            assert(strcmp(a,b) < 0);
+            assert(NaturalCollate.compare(a,b) == strcmp(coll_a, coll_b));
         });
 }
 
@@ -62,6 +65,7 @@ void add_bigger_as_strcmp_tests () {
             string coll_b = NaturalCollate.collate_key(b);
             assert(strcmp(coll_a,coll_b) > 0);
             assert(strcmp(a,b) > 0);
+            assert(NaturalCollate.compare(a,b) == strcmp(coll_a, coll_b));
 
             a = "foo0001";
             b = "bar0000";
@@ -69,6 +73,7 @@ void add_bigger_as_strcmp_tests () {
             coll_b = NaturalCollate.collate_key(b);
             assert(strcmp(coll_a,coll_b) > 0);
             assert(strcmp(a,b) > 0);
+            assert(NaturalCollate.compare(a,b) == strcmp(coll_a, coll_b));
 
             a = "bar010";
             b = "bar01";
@@ -76,6 +81,7 @@ void add_bigger_as_strcmp_tests () {
             coll_b = NaturalCollate.collate_key(b);
             assert(strcmp(coll_a,coll_b) > 0);
             assert(strcmp(a,b) > 0);
+            assert(NaturalCollate.compare(a,b) == strcmp(coll_a, coll_b));
         });
 }
 
