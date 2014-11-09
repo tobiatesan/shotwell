@@ -94,9 +94,17 @@ public class MediaSourceItem : CheckerboardItem {
         this.enable_sprockets = enable_sprockets;
     }
 
+
+    public new void set_title(string text, bool marked_up = false,
+        Pango.Alignment alignment = Pango.Alignment.LEFT) {
+        base.set_title(text, marked_up, alignment);
+        this.title_text = text;
+        this.natural_collation_key = null; // g_utf8_collate_key_for_filename(text);
+    }
+       
     public string get_natural_collation_key() {
         if (this.natural_collation_key == null) {
-            this.natural_collation_key = g_utf8_collate_key_for_filename(this.get_title());
+            this.natural_collation_key = g_utf8_collate_key_for_filename(this.title_text); // get_title());
         }
         return this.natural_collation_key;
     }
