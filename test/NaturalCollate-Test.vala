@@ -31,6 +31,34 @@ void add_numbers_tail_tests () {
 
             assert(strcmp(prepared_a.collate_key(),prepared_b.collate_key()) > 0);
             assert(strcmp(a,b) < 0);
+          
+        });
+}
+
+void add_dots_tests () {
+    Test.add_func ("/vala/test", () => {
+            string sa = "Foo01.jpg";
+            string sb = "Foo2.jpg";
+            string sc = "Foo3.jpg";
+            string sd = "Foo10.jpg";
+
+            assert (strcmp(sa, sd) < 0);
+            assert (strcmp(sd, sb) < 0);
+            assert (strcmp(sb, sc) < 0);
+
+            string prepared_sa = NaturalCollate.preprocess(sa);
+            string prepared_sb = NaturalCollate.preprocess(sb);
+            string prepared_sc = NaturalCollate.preprocess(sc);
+            string prepared_sd = NaturalCollate.preprocess(sd);
+
+            string coll_sa = prepared_sa.collate_key();
+            string coll_sb = prepared_sb.collate_key();
+            string coll_sc = prepared_sc.collate_key();
+            string coll_sd = prepared_sd.collate_key();
+
+            assert (strcmp(coll_sa, coll_sb) < 0);
+            assert (strcmp(coll_sb, coll_sc) < 0);
+            assert (strcmp(coll_sc, coll_sd) < 0);
         });
 }
 
@@ -106,5 +134,6 @@ void main (string[] args) {
     add_bigger_as_strcmp_tests();
     add_ignore_leading_zeros_tests();
     add_numbers_tests();
+    add_dots_tests();
     Test.run();
 }
