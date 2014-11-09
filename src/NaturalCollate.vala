@@ -18,7 +18,7 @@
 namespace NaturalCollate {
 
 private const unichar SUPERDIGIT = ':';
-private const unichar COLLATE_SENTINEL = 0x2; // glib uses these, so do we
+private const unichar NUM_SENTINEL = 0x2; // glib uses these, so do we
 
 private static int read_number(owned string s, ref int byte_index) {
     /*
@@ -40,7 +40,12 @@ private static int read_number(owned string s, ref int byte_index) {
     return number;
 }
 
-public static string preprocess(owned string str) {
+public static int compare(string str1, string str2) {
+    return strcmp(collate_key(str1), collate_key(str2));
+}
+
+public static string collate_key(owned string str) {
+    string COLLATION_SENTINEL = "\x01\x01\x01"; // (ONE.to_string() + ONE.to_string() + ONE.to_string());
     /*
      * Prepares a string for collation much in the same fashion so that collate has
      * roughly the same effect as g_utf8_collate_key_for_file, except that it doesn't
@@ -61,7 +66,7 @@ public static string preprocess(owned string str) {
 
         // (0... position( is a bunch of non-numerical chars.
 
-        processed = processed + (str.substring(0, position));
+        processed = processed + (str.substring(0, position).collate_key());
         str = str.substring(position);
         
         eos = (str.length == 0);
@@ -71,15 +76,20 @@ public static string preprocess(owned string str) {
             int number = read_number(str, ref position);
             str = str.substring(position);
             int number_of_superdigits = number.to_string().length-1;
-            string to_append = COLLATE_SENTINEL.to_string();
+            string to_append = "";
             for (int i = 0; i < number_of_superdigits; i++) {
                 to_append = to_append + SUPERDIGIT.to_string();
             }
             to_append = to_append + (number.to_string());
-            processed = processed + to_append;
+            processed = processed + COLLATION_SENTINEL + NUM_SENTINEL.to_string() + to_append; // to_append.collate_key();
         }
         eos = (str.length == 0);
     }
-    return processed;
+    return processed + NUM_SENTINEL.to_string();
 }
+
+
+
+
+
 }
