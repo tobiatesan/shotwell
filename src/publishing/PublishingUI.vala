@@ -160,6 +160,8 @@ public class PublishingDialog : Gtk.Dialog {
         ((Gtk.HeaderBar) get_header_bar()).set_show_close_button(false);
         
         resizable = false;
+        modal = true;
+
         delete_event.connect(on_window_close);
         
         publishables = new Spit.Publishing.Publishable[0];
