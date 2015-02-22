@@ -926,6 +926,23 @@ public abstract class MediaPage : CheckerboardPage {
         get_command_manager().execute(new ModifyTagsCommand(media, new_tags));
     }
 
+
+/*
+    private void on_merge_tag() {
+        if (get_view().get_selected_count() != 1)
+            return;
+        
+        MediaSource media = (MediaSource) get_view().get_selected_at(0).get_source();
+        
+        MergeTagsDialog dialog = new MergeTagsDialog(media);
+        Gee.ArrayList<Tag>? new_tags = dialog.execute();
+        
+        if (new_tags == null)
+            return;
+        
+        // get_command_manager().execute(new ModifyTagsCommand(media, new_tags));
+    }
+*/
     private void set_display_tags(bool display) {
         get_view().freeze_notifications();
         get_view().set_property(Thumbnail.PROP_SHOW_TAGS, display);

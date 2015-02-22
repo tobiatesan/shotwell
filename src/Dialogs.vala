@@ -8,6 +8,11 @@
 // place: http://trac.yorba.org/ticket/3452
 namespace Dialogs {
 
+public bool pick_tag() {
+	stdout.printf("WOOT\n");
+	return false;
+}
+
 public bool confirm_delete_tag(Tag tag) {
     int count = tag.get_sources_count();
     if (count == 0)
@@ -2048,6 +2053,69 @@ public class ModifyTagsDialog : TagsDialog {
     }
     
 }
+
+
+public class MergeTagDialog : TagsDialog {
+    public MergeTagDialog() {
+        base (Resources.MERGE_TAG_LABEL, _("Tags (separated by commas):"), 
+            "");
+    }
+    
+/*    private static string? get_initial_text(MediaSource source) {
+        Gee.Collection<Tag>? source_tags = Tag.global.fetch_for_source(source);
+        if (source_tags == null)
+            return null;
+
+        Gee.Collection<Tag> terminal_tags = Tag.get_terminal_tags(source_tags);
+        
+        Gee.SortedSet<string> tag_basenames = new Gee.TreeSet<string>();
+        foreach (Tag tag in terminal_tags)
+            tag_basenames.add(HierarchicalTagUtilities.get_basename(tag.get_path()));
+        
+        string? text = null;
+        foreach (string name in tag_basenames) {
+            if (text == null)
+                text = "";
+            else
+                text += ", ";
+            
+            text += name;
+        }
+        
+        return text;
+    }
+*/  
+    public string? execute() {
+        string? text = _execute();
+        return text;
+		/* 
+		   if (text == null)
+            return null;
+        
+        Gee.ArrayList<Tag> new_tags = new Gee.ArrayList<Tag>();
+        
+        // return empty list if no tags specified
+        if (is_string_empty(text))
+            return new_tags;
+        
+        // break up by comma-delimiter, prep for use, and separate into list
+        string[] tag_names = Tag.prep_tag_names(text.split(","));
+        
+        tag_names = HierarchicalTagIndex.get_global_index().get_paths_for_names_array(tag_names);
+
+        foreach (string name in tag_names)
+            new_tags.add(Tag.for_path(name));
+        
+        return new_tags;
+		*/ 
+    }
+    
+//    protected override bool on_modify_validate(string text) {
+//        return (!text.contains(Tag.PATH_SEPARATOR_STRING));
+//    }
+    
+}
+
 
 public interface WelcomeServiceEntry : GLib.Object {
     public abstract string get_service_name();

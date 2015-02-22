@@ -1572,6 +1572,31 @@ public class RenameTagCommand : SimpleProxyableCommand {
     }
 }
 
+
+public class MergeTagCommand : SimpleProxyableCommand {
+    private string old_name;
+    private string new_name;
+    
+    // NOTE: new_name should be a name, not a path
+    public MergeTagCommand(Tag src, Tag dst) {
+        base (src, Resources.rename_tag_label(src.get_user_visible_name(), dst.get_user_visible_name()),
+			  dst.get_user_visible_name());
+        
+        // old_name = tag.get_user_visible_name();
+        // this.new_name = new_name;
+    }
+    
+    protected override void execute_on_source(DataSource source) {
+        if (!((Tag) source).rename(new_name))
+            AppWindow.error_message(Resources.rename_tag_exists_message(new_name));
+    }
+
+    protected override void undo_on_source(DataSource source) {
+        if (!((Tag) source).rename(old_name))
+            AppWindow.error_message(Resources.rename_tag_exists_message(old_name));
+    }
+}
+
 public class DeleteTagCommand : SimpleProxyableCommand {
     Gee.List<SourceProxy>? recursive_victim_proxies = null;
 

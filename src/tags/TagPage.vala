@@ -55,6 +55,11 @@ public class TagPage : CollectionPage {
             on_remove_tag_from_photos };
         // label and tooltip are assigned when the menu is displayed
         actions += remove_tag;
+
+        Gtk.ActionEntry merge_tag = { "MergeTag", null, TRANSLATABLE, null, null, 
+            on_merge_tag };
+        // label and tooltip are assigned when the menu is displayed
+        actions += merge_tag;
         
         Gtk.ActionEntry delete_tag_sidebar = { "DeleteTagSidebar", null, Resources.DELETE_TAG_SIDEBAR_MENU, 
             null, null, on_delete_tag };
@@ -67,6 +72,10 @@ public class TagPage : CollectionPage {
         Gtk.ActionEntry new_child_tag_sidebar = { "NewChildTagSidebar", null, Resources.NEW_CHILD_TAG_SIDEBAR_MENU,
             null, null, on_new_child_tag_sidebar };
         actions += new_child_tag_sidebar;
+
+        Gtk.ActionEntry merge_tag_sidebar = { "MergeTagSidebar", null, Resources.MERGE_TAG_SIDEBAR_MENU,
+            null, null, on_merge_tag_sidebar };
+        actions += merge_tag_sidebar;
 
         return actions;
     }
@@ -94,6 +103,11 @@ public class TagPage : CollectionPage {
             null,
             selected_count > 0);
         
+        set_action_details("MergeTag",
+		   Resources.merge_tag_menu(tag.get_name()),
+            null,
+            true);
+
         base.update_actions(selected_count, count);
     }
     
@@ -121,5 +135,28 @@ public class TagPage : CollectionPage {
                 get_view().get_selected_count(), false));
         }
     }
+	
+    private void on_merge_tag() {
+        // if (get_view().get_selected_count() != 1)
+		// return;
+        
+        // MediaSource media = (MediaSource) get_view().get_selected_at(0).get_source();
+        
+        MergeTagDialog dialog = new MergeTagDialog();
+        string? new_tag = dialog.execute();
+        stdout.printf(new_tag+"\n");
+        //if (new_tag == null)
+		//	return null;
+        // return new_tag;
+        // get_command_manager().execute(new ModifyTagsCommand(media, new_tags));
+    }
+
+/*	private void on_merge_tag() {
+		Dialogs.pick_tag();
+	}
+*/
+	private void on_merge_tag_sidebar() { 
+		on_merge_tag(); // Dialogs.pick_tag();
+	}
 }
 

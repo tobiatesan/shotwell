@@ -382,6 +382,19 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     
     public const string MODIFY_TAGS_MENU = _("Modif_y Tags...");
     public const string MODIFY_TAGS_LABEL = _("Modify Tags");
+
+    public const string MERGE_TAG_SIDEBAR_MENU = _("Mer_ge...");
+    public const string MERGE_TAG_MENU = _("Mer_ge Tags...");
+    public const string MERGE_TAG_LABEL = _("Merge Tags");
+
+    public string merge_tag_menu(string name) {
+        return _("Mer_ge Tag \"%s\"...").printf(name);
+    }
+    
+    public string merge_tag_label(string old_name, string new_name) {
+        return _("Merge Tag \"%s\" to \"%s\"").printf(old_name, new_name);
+    }
+    
     
     public string tag_photos_label(string name, int count) {
         return ((count == 1) ? _("Tag Photo as \"%s\"") : _("Tag Photos as \"%s\"")).printf(name);

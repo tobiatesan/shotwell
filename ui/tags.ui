@@ -4,6 +4,7 @@
         <menu name="TagsMenu" action="TagsMenu">
             <menuitem name="RemoveTagFromPhotos" action="RemoveTagFromPhotos" />
             <separator />
+            <menuitem name="MergeTag" action="MergeTag" />
             <menuitem name="RenameTag" action="RenameTag" />
             <menuitem name="DeleteTag" action="DeleteTag" />
         </menu>
@@ -18,6 +19,7 @@
     <popup name="TagsContextMenu">
         <menuitem name="ContextNewChildTag" action="NewChildTagSidebar" />
         <separator />
+        <menuitem name="ContextMergeTag" action="MergeTagSidebar" />
         <menuitem name="ContextDeleteTag" action="RenameTagSidebar" />
         <menuitem name="ContextRenameTag" action="DeleteTagSidebar" />
     </popup>
